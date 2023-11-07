@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ data.titulo }}
+{% endblock %}
+
+{% block body %}
+	<h1> Calculadora VLSM </h1>
+
+	<main>
+		<form>
+			<label>Segmento de red</label>
+			<input type="number" id="primer_octeto"> </input> <span>.</span>
+			<input type="number" id="segundo_octeto"> </input> <span>.</span>
+			<input type="number" id="tercer_octeto"> </input> <span>.</span>
+			<input type="number" id="cuarto_octeto"> </input> <span>/</span>
+			<input type="number" id="prefijo"> </input> 
+
+			<label>Mascara</label>
+			<input type="number" id="mask1"> </input> <span>.</span>
+			<input type="number" id="mask2"> </input> <span>.</span>
+			<input type="number" id="mask3"> </input> <span>.</span>
+			<input type="number" id="mask4"> </input> 
+
+			<label> Ingrese los nombres de las subredes que se van a requerir. <span> (Los nombres deberan estar separados por , o / o |) </span> </label> </label>
+			<textarea> </textarea>
+
+
+		</form>
+
+		
+	</main>
+{% endblock %}
