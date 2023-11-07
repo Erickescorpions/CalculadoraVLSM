@@ -6,9 +6,9 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     data = {
-        'titulo': 'Home',
-        'parrafo': 'esta es mi pagina de prueba'
+        'titulo': 'Calculadora VLSM',
     }
+
     return render_template('index.html', data=data)
 
 if __name__ == '__main__':
