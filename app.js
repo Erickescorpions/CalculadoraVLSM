@@ -51,8 +51,8 @@ function eliminarFila(event, index) {
         // Crear y agregar celda con el mensaje
         let celdaMensaje = document.createElement("td");
         celdaMensaje.colSpan = 3;
-        celdaMensaje.classList.add("text-center"); // Agregar clase para centrar texto
-        celdaMensaje.textContent = "No se ha registrado ningún dato";
+        celdaMensaje.classList.add("text-center");
+        celdaMensaje.textContent = "No se ha registrado ninguna subred";
         filaSinSubredes.appendChild(celdaMensaje);
     
         // Agregar la fila al tbody
