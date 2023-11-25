@@ -6,12 +6,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora VLSM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .fondo-gris {
+            background-color: rgba(169, 169, 169, 0.2); /* 0.5 es la opacidad */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 20px; /* Margen interno */
+        }
+
+        .error {
+            font-size: 14px; /* Tamaño de la fuente más pequeño */
+            color: red; /* Color rojo */
+        }
+    </style>
 </head>
-<body>
-    <header class="p-4">
+<body class="container px-2 py-3">
+    <header class="pt-1">
         
         <h1 class="text-center">Calculadora VLSM</h1>
     </header>
+
+    <div class="container my-4 d-flex align-items-center justify-content-center fondo-gris">
+        <h2>Clases de Redes</h2>
+        <table class="table rounded">
+            <thead>
+                <tr>
+                    <th>Clase</th>
+                    <th>Rango de Dirección IP</th>
+                    <th>Octetos para la Red</th>
+                    <th>Octetos para los Hosts</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Clase A</td>
+                    <td>1.0.0.0 - 126.255.255.255</td>
+                    <td>1</td>
+                    <td>3</td>
+                    <td>10.0.0.0</td>
+                </tr>
+                <tr>
+                    <td>Clase B</td>
+                    <td>128.0.0.0 - 191.255.255.255</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>172.16.0.0</td>
+                </tr>
+                <tr>
+                    <td>Clase C</td>
+                    <td>192.0.0.0 - 223.255.255.255</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>192.168.0.0</td>
+                </tr>
+                <tr>
+                    <td>Clase D</td>
+                    <td>224.0.0.0 - 239.255.255.255</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td>Clase E</td>
+                    <td>240.0.0.0 - 255.255.255.255</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <main class="container">
         <form>
@@ -26,6 +90,8 @@
                     <input type="number" class="form-control" id="cuarto_octeto" value="0"> <span class="mx-1">/</span>
                     <input type="number" class="form-control" id="prefijo" value="0"> 
                 </div>
+
+                <span id="error-segmento" class="error d-block mt-2"></span>
             </div>
 
             <div class="mb-3 row">
@@ -36,6 +102,8 @@
                     <input type="number" class="form-control" id="mask3" value="0"> <span class="mx-1">.</span>
                     <input type="number" class="form-control" id="mask4" value="0"> 
                 </div>
+
+                <span id="error-mascara"></span>
             </div>
             
             <button type="button" class="btn btn-primary mb-3 float-end" id="boton-subredes">
@@ -51,7 +119,7 @@
                 <tbody id="subredes-tbody">
                     <tr id="fila0">
                         <td><input type="text" class="form-control" placeholder="Ingresa el nombre de la subred"></td>
-                        <td><input type="number" class="form-control" placeholder="Ingresa los hosts de la subred"></td>
+                        <td><input type="number" class="form-control" placeholder="Ingresa los hosts de la subred" value="0"></td>
                         <td><button class="btn btn-danger" onclick="eliminarFila(event, 0);">Eliminar</button></td>
                     </tr>
                 </tbody>

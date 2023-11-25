@@ -4,6 +4,8 @@ const tablaSubredes = document.getElementById("tabla-subredes");
 const tbodyTablaSub = document.getElementById("subredes-tbody");
 const botonSubredes = document.getElementById("boton-subredes");
 const botonSubmit = document.getElementById("boton-submit");
+const prefijo = document.getElementById("prefijo");
+
 let filaIndex = 1;
 
 botonSubredes.addEventListener('click', (e) => {
@@ -24,7 +26,7 @@ botonSubredes.addEventListener('click', (e) => {
     let fila = document.createElement("tr");
 
     nombreSubred.innerHTML = '<input type="text" class="form-control" placeholder="Ingresa el nombre de la subred">';
-    hostsSubred.innerHTML = '<input type="number" class="form-control" placeholder="Ingresa los hosts de la subred">';
+    hostsSubred.innerHTML = '<input type="number" class="form-control" placeholder="Ingresa los hosts de la subred" value="0">';
     botonSubredes.innerHTML = `<button class="btn btn-danger" onclick="eliminarFila(event, ${filaIndex});">Eliminar</button>`;
 
     fila.id = "fila" + filaIndex;
@@ -66,23 +68,62 @@ let primerOcteto = 0;
 let segundoOcteto = 0;
 let tercerOcteto = 0;
 let cuartoOcteto = 0;
-let prefijo = 0;
 
+let datosSubred = [];
 let subredes = [];
 
+function decimalToBinary(decimal) {
+    // Verificar si la entrada es un número
+    if (isNaN(decimal)) {
+        return "Error: Ingresa un número decimal válido.";
+    }
+  
+    // Verificar si el número es entero
+    if (!Number.isInteger(decimal)) {
+        return "Error: Ingresa un número decimal entero.";
+    }
+  
+    // Convertir a binario
+    return decimal.toString(2);
+}
 
-
-
-botonSubmit.addEventListener("click", function (event) {
+prefijo.addEventListener('change',  (event) => {
     event.preventDefault();
 
-    document.getElementById('errorAlert').style.display = 'none';
-    primerOcteto = document.getElementById("primer_octeto").value;
-    segundoOcteto = document.getElementById("segundo_octeto").value;
-    tercerOcteto = document.getElementById("tercer_octeto").value;
-    cuartoOcteto = document.getElementById("cuarto_octeto").value;
-    prefijo = document.getElementById("prefijo").value;
+    let binario = decimalToBinary(Number(prefijo.value));
 
+    console.log(binario);
+
+    console.log("se modifico el valor del prefijo");
+})
+
+function validarDatosRed() {
+    datosSubred["segmento_1er"] = document.getElementById("primer_octeto").value;
+    datosSubred["segmento_2do"] = document.getElementById("segundo_octeto").value;
+    datosSubred["segmento_3er"] = document.getElementById("tercer_octeto").value;
+    datosSubred["segmento_4to"] = document.getElementById("cuarto_octeto").value;
+    datosSubred["prefijo"] = document.getElementById("prefijo").value;
+
+    if(datosSubred["segmento_1er"] == 0) {
+        document.getElementById("error-segmento").innerHTML = "Ingresa valores correctos para las subredes A, B o C. </br>";
+        document.getElementById("error-segmento").style.display = 'block';
+    }
+
+    if(datosSubred["prefijo"] == 0) {
+        document.getElementById("error-segmento").innerHTML += "Ingresa un prefijo para la red </br>";
+        document.getElementById("error-segmento").style.display = 'block';
+    }
+
+
+    console.log(datosSubred);
+}
+
+botonSubmit.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    validarDatosRed();
+
+    document.getElementById('errorAlert').style.display = 'none';
     let filas = tbodyTablaSub.children;
 
     if(filas.length == 1) {
@@ -98,8 +139,13 @@ botonSubmit.addEventListener("click", function (event) {
 
         // Obtiene todos los inputs dentro de la fila
         var inputs = fila.querySelectorAll('input');
+        let nombre = inputs[0].value;
+        let hosts = inputs[1].value;
 
-
+        if(nombre == "" || hosts == 0) {
+            continue;
+        }
+        
         subredes.push({
             nombre: inputs[0].value,
             hosts: inputs[1].value
